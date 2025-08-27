@@ -1,0 +1,195 @@
+<mvc:View
+  controllerName="sapify.controller.Orders"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:f="sap.f"
+  xmlns:l="sap.ui.layout"
+  xmlns:core="sap.ui.core"
+  displayBlock="true"
+  height="100%"
+>
+  <Page
+    title="{i18n>ordersTitle}"
+    class="sapUiResponsiveContentPadding"
+    showNavButton="true"
+    navButtonPress="onNavBack"
+  >
+    <headerContent>
+      <Button
+        icon="sap-icon://add"
+        text="{i18n>addOrder}"
+        press="onAddOrder"
+        type="Emphasized"
+      />
+    </headerContent>
+    <content>
+      <f:FlexibleColumnLayout
+        id="fcl"
+        backgroundDesign="Transparent"
+        stateChange=".onStateChange"
+        layout="{/layout}"
+      >
+        <f:beginColumn>
+          <Panel
+            headerText="{i18n>ordersList}"
+            class="sapUiResponsiveMargin"
+            width="auto"
+          >
+            <l:VerticalLayout width="100%">
+              <SearchField
+                id="searchField"
+                liveChange="onSearch"
+                width="100%"
+                placeholder="{i18n>searchOrders}"
+              />
+              <Table
+                id="ordersTable"
+                items="{path: '/Orders', sorter: {path: 'createdAt', descending: true}}"
+                mode="SingleSelectMaster"
+                selectionChange="onOrderSelect"
+                growing="true"
+                growingThreshold="20"
+              >
+                <columns>
+                  <Column>
+                    <Text text="{i18n>orderNumber}" />
+                  </Column>
+                  <Column>
+                    <Text text="{i18n>customerName}" />
+                  </Column>
+                  <Column>
+                    <Text text="{i18n>orderStatus}" />
+                  </Column>
+                  <Column>
+                    <Text text="{i18n>orderTotal}" />
+                  </Column>
+                </columns>
+                <items>
+                  <ColumnListItem type="Active">
+                    <cells>
+                      <ObjectIdentifier
+                        title="{orderNumber}"
+                        text="{
+                          path: 'createdAt',
+                          formatter: '.formatter.formatDate'
+                        }"
+                      />
+                      <Text text="{customerName}" />
+                      <ObjectStatus
+                        text="{status}"
+                        state="{
+                          path: 'status',
+                          formatter: '.formatter.formatStatusState'
+                        }"
+                      />
+                      <ObjectNumber
+                        number="{
+                          path: 'totalAmount',
+                          formatter: '.formatter.formatCurrency'
+                        }"
+                        unit="USD"
+                      />
+                    </cells>
+                  </ColumnListItem>
+                </items>
+              </Table>
+            </l:VerticalLayout>
+          </Panel>
+        </f:beginColumn>
+        
+        <f:midColumn>
+          <Panel
+            headerText="{i18n>orderDetails}"
+            class="sapUiResponsiveMargin"
+            width="auto"
+          >
+            <l:VerticalLayout width="100%">
+              <Label text="{i18n>orderNumber}" />
+              <Input value="{/selectedOrder/orderNumber}" editable="false" />
+              
+              <Label text="{i18n>customerName}" />
+              <Input value="{/selectedOrder/customerName}" editable="false" />
+              
+              <Label text="{i18n>customerEmail}" />
+              <Input value="{/selectedOrder/customerEmail}" editable="false" />
+              
+              <Label text="{i18n>orderStatus}" />
+              <Select
+                selectedKey="{/selectedOrder/status}"
+                enabled="{= ${/userRole} === 'Admin' || ${/userRole} === 'Manager' }"
+                change="onStatusChange"
+              >
+                <items>
+                  <core:Item key="Pending" text="{i18n>statusPending}" />
+                  <core:Item key="Processing" text="{i18n>statusProcessing}" />
+                  <core:Item key="Shipped" text="{i18n>statusShipped}" />
+                  <core:Item key="Delivered" text="{i18n>statusDelivered}" />
+                  <core:Item key="Cancelled" text="{i18n>statusCancelled}" />
+                </items>
+              </Select>
+              
+              <Label text="{i18n>orderItems}" />
+              <Table
+                items="{/selectedOrder/items}"
+                mode="None"
+              >
+                <columns>
+                  <Column>
+                    <Text text="{i18n>product}" />
+                  </Column>
+                  <Column>
+                    <Text text="{i18n>quantity}" />
+                  </Column>
+                  <Column>
+                    <Text text="{i18n>price}" />
+                  </Column>
+                  <Column>
+                    <Text text="{i18n>total}" />
+                  </Column>
+                </columns>
+                <items>
+                  <ColumnListItem>
+                    <cells>
+                      <Text text="{product/name}" />
+                      <Text text="{quantity}" />
+                      <ObjectNumber
+                        number="{
+                          path: 'price',
+                          formatter: '.formatter.formatCurrency'
+                        }"
+                        unit="USD"
+                      />
+                      <ObjectNumber
+                        number="{
+                          path: 'total',
+                          formatter: '.formatter.formatCurrency'
+                        }"
+                        unit="USD"
+                      />
+                    </cells>
+                  </ColumnListItem>
+                </items>
+              </Table>
+              
+              <Toolbar>
+                <ToolbarSpacer />
+                <Button
+                  text="{i18n>editOrder}"
+                  press="onEditOrder"
+                  type="Emphasized"
+                  visible="{= ${/userRole} === 'Admin' || ${/userRole} === 'Manager' }"
+                />
+                <Button
+                  text="{i18n>deleteOrder}"
+                  press="onDeleteOrder"
+                  type="Reject"
+                  visible="{= ${/userRole} === 'Admin' }"
+                />
+              </Toolbar>
+            </l:VerticalLayout>
+          </Panel>
+        </f:midColumn>
+      </f:FlexibleColumnLayout>
+    </content>
+  </Page>
+</mvc:View>

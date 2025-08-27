@@ -1,0 +1,14 @@
+{
+  "currentUser": {
+    "id": "",
+    "username": "",
+    "email": "",
+    "role": "Employee"
+  },
+  "layout": "OneColumn",
+  "selectedProduct": {},
+  "selectedOrder": {},
+  "dashboard": {
+    "lowStockProducts": []
+  }
+}

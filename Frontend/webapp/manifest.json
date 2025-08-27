@@ -1,0 +1,109 @@
+{
+  "_version": "1.58.0",
+  "sap.app": {
+    "id": "sapify",
+    "type": "application",
+    "title": "Sapify Order & Inventory Management",
+    "description": "Order and Inventory Management System",
+    "applicationVersion": {
+      "version": "1.0.0"
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.58.0",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {},
+        "sap.ui.layout": {},
+        "sap.f": {},
+        "sap.viz": {}
+      }
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      },
+      "": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/app.json"
+      },
+      "odata": {
+        "type": "sap.ui.model.odata.v4.ODataModel",
+        "settings": {
+          "serviceUrl": "/odata/",
+          "synchronizationMode": "None"
+        }
+      }
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "sapify.view",
+        "controlId": "app",
+        "controlAggregation": "pages"
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "home",
+          "target": "home"
+        },
+        {
+          "pattern": "products",
+          "name": "products",
+          "target": "products"
+        },
+        {
+          "pattern": "orders",
+          "name": "orders",
+          "target": "orders"
+        },
+        {
+          "pattern": "dashboard",
+          "name": "dashboard",
+          "target": "dashboard"
+        },
+        {
+          "pattern": "login",
+          "name": "login",
+          "target": "login"
+        },
+        {
+          "pattern": "register",
+          "name": "register",
+          "target": "register"
+        }
+      ],
+      "targets": {
+        "home": {
+          "viewName": "Home",
+          "viewLevel": 1
+        },
+        "products": {
+          "viewName": "Products",
+          "viewLevel": 2
+        },
+        "orders": {
+          "viewName": "Orders",
+          "viewLevel": 2
+        },
+        "dashboard": {
+          "viewName": "Dashboard",
+          "viewLevel": 2
+        },
+        "login": {
+          "viewName": "Login",
+          "viewLevel": 1
+        },
+        "register": {
+          "viewName": "Register",
+          "viewLevel": 1
+        }
+      }
+    }
+  }
+}

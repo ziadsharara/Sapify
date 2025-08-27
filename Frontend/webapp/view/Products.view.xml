@@ -1,0 +1,135 @@
+<mvc:View
+  controllerName="sapify.controller.Products"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:f="sap.f"
+  xmlns:l="sap.ui.layout"
+  xmlns:core="sap.ui.core"
+  displayBlock="true"
+  height="100%"
+>
+  <Page
+    title="{i18n>productsTitle}"
+    class="sapUiResponsiveContentPadding"
+    showNavButton="true"
+    navButtonPress="onNavBack"
+  >
+    <headerContent>
+      <Button
+        icon="sap-icon://add"
+        text="{i18n>addProduct}"
+        press="onAddProduct"
+        type="Emphasized"
+      />
+    </headerContent>
+    <content>
+      <f:FlexibleColumnLayout
+        id="fcl"
+        backgroundDesign="Transparent"
+        stateChange=".onStateChange"
+        layout="{/layout}"
+      >
+        <f:beginColumn>
+          <Panel
+            headerText="{i18n>productsList}"
+            class="sapUiResponsiveMargin"
+            width="auto"
+          >
+            <l:VerticalLayout width="100%">
+              <SearchField
+                id="searchField"
+                liveChange="onSearch"
+                width="100%"
+                placeholder="{i18n>searchProducts}"
+              />
+              <Table
+                id="productsTable"
+                items="{path: '/Products', sorter: {path: 'name'}}"
+                mode="SingleSelectMaster"
+                selectionChange="onProductSelect"
+                growing="true"
+                growingThreshold="20"
+              >
+                <columns>
+                  <Column>
+                    <Text text="{i18n>productName}" />
+                  </Column>
+                  <Column>
+                    <Text text="{i18n>productCategory}" />
+                  </Column>
+                  <Column>
+                    <Text text="{i18n>productPrice}" />
+                  </Column>
+                  <Column>
+                    <Text text="{i18n>productStock}" />
+                  </Column>
+                </columns>
+                <items>
+                  <ColumnListItem type="Active">
+                    <cells>
+                      <ObjectIdentifier
+                        title="{name}"
+                        text="{sku}"
+                      />
+                      <Text text="{category}" />
+                      <ObjectNumber
+                        number="{price}"
+                        unit="USD"
+                      />
+                      <ObjectNumber
+                        number="{stock}"
+                        state="{= ${stock} > 10 ? 'Success' : ${stock} > 0 ? 'Warning' : 'Error' }"
+                      />
+                    </cells>
+                  </ColumnListItem>
+                </items>
+              </Table>
+            </l:VerticalLayout>
+          </Panel>
+        </f:beginColumn>
+        
+        <f:midColumn>
+          <Panel
+            headerText="{i18n>productDetails}"
+            class="sapUiResponsiveMargin"
+            width="auto"
+          >
+            <l:VerticalLayout width="100%">
+              <Label text="{i18n>productName}" />
+              <Input value="{/selectedProduct/name}" editable="false" />
+              
+              <Label text="{i18n>productSKU}" />
+              <Input value="{/selectedProduct/sku}" editable="false" />
+              
+              <Label text="{i18n>productCategory}" />
+              <Input value="{/selectedProduct/category}" editable="false" />
+              
+              <Label text="{i18n>productDescription}" />
+              <TextArea value="{/selectedProduct/description}" editable="false" />
+              
+              <Label text="{i18n>productPrice}" />
+              <Input value="{/selectedProduct/price}" editable="false" />
+              
+              <Label text="{i18n>productStock}" />
+              <Input value="{/selectedProduct/stock}" editable="false" />
+              
+              <Toolbar>
+                <ToolbarSpacer />
+                <Button
+                  text="{i18n>editProduct}"
+                  press="onEditProduct"
+                  type="Emphasized"
+                />
+                <Button
+                  text="{i18n>deleteProduct}"
+                  press="onDeleteProduct"
+                  type="Reject"
+                />
+              </Toolbar>
+            </l:VerticalLayout>
+          </Panel>
+        </f:midColumn>
+      </f:FlexibleColumnLayout>
+    </content>
+  </Page>
+</mvc:View>

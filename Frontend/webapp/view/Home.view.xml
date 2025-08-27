@@ -1,0 +1,66 @@
+<mvc:View
+  controllerName="sapify.controller.Home"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:f="sap.f"
+  xmlns:l="sap.ui.layout"
+  displayBlock="true"
+  height="100%"
+>
+  <Page
+    title="{i18n>homeTitle}"
+    class="sapUiResponsiveContentPadding"
+  >
+    <content>
+      <f:FlexibleColumnLayout
+        id="fcl"
+        backgroundDesign="Transparent"
+        stateChange=".onStateChange"
+        layout="{/layout}"
+      >
+        <f:beginColumn>
+          <Panel
+            headerText="{i18n>homeWelcomeTitle}"
+            class="sapUiResponsiveMargin"
+            width="auto"
+          >
+            <l:VerticalLayout width="100%">
+              <Title text="{i18n>homeWelcomeMessage}" titleStyle="H2" />
+              <Text text="{i18n>homeDescription}" />
+              <Button
+                text="{i18n>viewProducts}"
+                type="Emphasized"
+                press="onNavToProducts"
+              />
+              <Button
+                text="{i18n>viewOrders}"
+                type="Default"
+                press="onNavToOrders"
+              />
+            </l:VerticalLayout>
+          </Panel>
+          
+          <Panel
+            headerText="{i18n>quickActions}"
+            class="sapUiResponsiveMargin"
+            width="auto"
+          >
+            <l:VerticalLayout width="100%">
+              <Title text="{i18n>quickActionsTitle}" titleStyle="H3" />
+              <Button
+                text="{i18n>createProduct}"
+                type="Default"
+                press="onCreateProduct"
+              />
+              <Button
+                text="{i18n>createOrder}"
+                type="Default"
+                press="onCreateOrder"
+              />
+            </l:VerticalLayout>
+          </Panel>
+        </f:beginColumn>
+      </f:FlexibleColumnLayout>
+    </content>
+  </Page>
+</mvc:View>

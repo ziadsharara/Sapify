@@ -4,10 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ui5 serve --config=ui5.yaml --open index.html"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "@sap/ux-ui5-tooling": "^1.18.5",
+    "@ui5/builder": "^4.0.9",
+    "@ui5/cli": "^4.0.23",
+    "@ui5/fs": "^4.0.1",
+    "@ui5/logger": "^4.0.1"
+  }
 }
