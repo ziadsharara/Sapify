@@ -46,7 +46,7 @@ A comprehensive order and inventory management application developed during our 
    npm run serve
    ```
 ## 🏗️ Project Structure
-
+```
 sapify-app/
 ├── backend/
 │ ├── src/
@@ -61,6 +61,7 @@ sapify-app/
 │ │ └── model/ # Data Models
 │ └── package.json
 └── README.md
+```
 
 ## 👨‍💻 Development Team
 
